@@ -2,6 +2,7 @@ from pydantic import BaseModel
 
 
 # define models
+# hi
 class Student(BaseModel):
     student_name: str
     email: str
