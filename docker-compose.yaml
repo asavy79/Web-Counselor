@@ -1,0 +1,37 @@
+services:
+  nextjs:
+    image: course-schedule-container
+    build: 
+      context: ./course-scheduler
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./course-scheduler:/app
+      - /app/node_modules
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  fastapi:
+    image: backend-service
+    build: 
+      context: ./rag-backend
+      dockerfile: Dockerfile
+    ports: 
+      - "8000:8000"
+    volumes:
+      - ./rag-backend:/app
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+  postgresdb:
+    image: ankane/pgvector
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+volumes:
+  postgres_data:
