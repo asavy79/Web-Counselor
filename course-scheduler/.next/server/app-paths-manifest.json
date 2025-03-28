@@ -1,0 +1,6 @@
+{
+  "/page": "app/page.js",
+  "/(protected)/available-courses/page": "app/(protected)/available-courses/page.js",
+  "/api/student_courses/route": "app/api/student_courses/route.js",
+  "/api/chat/route": "app/api/chat/route.js"
+}

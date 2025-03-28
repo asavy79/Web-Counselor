@@ -1,0 +1,16 @@
+{
+  "node": {
+    "008653b3b5caaa713364e9d1a367cf91d63666f43d": {
+      "workers": {
+        "app/(protected)/dashboard/page": {
+          "moduleId": "[project]/.next-internal/server/app/(protected)/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/(protected)/dashboard/page": "rsc"
+      }
+    }
+  },
+  "edge": {}
+}
