@@ -1,9 +1,9 @@
 {
   "node": {
-    "00703911d9405eb72d5521f8daf3d1906e94cdc34e": {
+    "008653b3b5caaa713364e9d1a367cf91d63666f43d": {
       "workers": {
         "app/authenticate/page": {
-          "moduleId": "[project]/.next-internal/server/app/authenticate/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signin-button.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+          "moduleId": "[project]/.next-internal/server/app/authenticate/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/components/signin-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         }
       },
@@ -11,10 +11,10 @@
         "app/authenticate/page": "rsc"
       }
     },
-    "008653b3b5caaa713364e9d1a367cf91d63666f43d": {
+    "00703911d9405eb72d5521f8daf3d1906e94cdc34e": {
       "workers": {
         "app/authenticate/page": {
-          "moduleId": "[project]/.next-internal/server/app/authenticate/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signin-button.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+          "moduleId": "[project]/.next-internal/server/app/authenticate/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\", ACTIONS_MODULE1 => \"[project]/src/components/signin-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
         }
       },

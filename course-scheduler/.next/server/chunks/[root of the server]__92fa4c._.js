@@ -159,6 +159,7 @@ const { handlers, signIn, signOut, auth } = (0, __TURBOPACK__imported__module__$
 var { r: __turbopack_require__, f: __turbopack_module_context__, i: __turbopack_import__, s: __turbopack_esm__, v: __turbopack_export_value__, n: __turbopack_export_namespace__, c: __turbopack_cache__, M: __turbopack_modules__, l: __turbopack_load__, j: __turbopack_dynamic__, P: __turbopack_resolve_absolute_path__, U: __turbopack_relative_url__, R: __turbopack_resolve_module_id_path__, b: __turbopack_worker_blob_url__, g: global, __dirname, x: __turbopack_external_require__, y: __turbopack_external_import__, z: __turbopack_require_stub__ } = __turbopack_context__;
 {
 __turbopack_esm__({
+    "DELETE": (()=>DELETE),
     "GET": (()=>GET),
     "POST": (()=>POST)
 });
@@ -244,7 +245,6 @@ async function GET(request) {
             });
         }
         const data = await response.json();
-        console.log(data);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json(data, {
             status: 200
         });
@@ -252,6 +252,49 @@ async function GET(request) {
         console.error("Error fetching student courses:", error);
         return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             error: "Error fetching student courses"
+        }, {
+            status: 500
+        });
+    }
+}
+async function DELETE(request) {
+    const session = await (0, __TURBOPACK__imported__module__$5b$project$5d2f$src$2f$auth$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["auth"])();
+    const email = session?.user?.email;
+    const courseId = request.nextUrl.searchParams.get("courseId");
+    if (!email) {
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: "Unauthorized"
+        }, {
+            status: 401
+        });
+    }
+    try {
+        const response = await fetch(`http://fastapi:8000/courses`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                email,
+                course_code: courseId
+            })
+        });
+        if (!response.ok) {
+            return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+                error: "Failed to delete course"
+            }, {
+                status: 500
+            });
+        }
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            message: "Course deleted successfully"
+        }, {
+            status: 200
+        });
+    } catch (error) {
+        console.error("Error deleting course:", error);
+        return __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
+            error: "Error deleting course"
         }, {
             status: 500
         });

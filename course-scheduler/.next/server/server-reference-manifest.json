@@ -5,13 +5,23 @@
         "app/(protected)/available-courses/page": {
           "moduleId": "[project]/.next-internal/server/app/(protected)/available-courses/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
           "async": false
+        },
+        "app/(protected)/profile/page": {
+          "moduleId": "[project]/.next-internal/server/app/(protected)/profile/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+          "async": false
+        },
+        "app/(protected)/dashboard/page": {
+          "moduleId": "[project]/.next-internal/server/app/(protected)/dashboard/page/actions.js { ACTIONS_MODULE0 => \"[project]/src/components/signout-button.tsx [app-rsc] (ecmascript)\" } [app-rsc] (ecmascript)",
+          "async": false
         }
       },
       "layer": {
-        "app/(protected)/available-courses/page": "rsc"
+        "app/(protected)/available-courses/page": "rsc",
+        "app/(protected)/profile/page": "rsc",
+        "app/(protected)/dashboard/page": "rsc"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "fU0r96djdbH9+oiDEsfQ6JtanvfGlIcxCUwSq4zSD2w="
+  "encryptionKey": "E4bPhD622tnbM+Ej6EMuP6c/Sc+yjljQMxRFDybkW1w="
 }

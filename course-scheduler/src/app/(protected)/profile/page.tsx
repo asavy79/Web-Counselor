@@ -39,15 +39,15 @@ export default async function Profile() {
                     <div className="grid grid-cols-3 gap-8 w-full max-w-sm">
                         <div className="text-center">
                             <div className="text-xl font-bold text-gray-900">0</div>
-                            <div className="text-sm text-gray-500">Bitches</div>
+                            <div className="text-sm text-gray-500">Posts</div>
                         </div>
                         <div className="text-center">
                             <div className="text-xl font-bold text-gray-900">0</div>
-                            <div className="text-sm text-gray-500">Hoes</div>
+                            <div className="text-sm text-gray-500">Likes</div>
                         </div>
                         <div className="text-center">
                             <div className="text-xl font-bold text-gray-900">0</div>
-                            <div className="text-sm text-gray-500">Money</div>
+                            <div className="text-sm text-gray-500">Followers</div>
                         </div>
                     </div>
 

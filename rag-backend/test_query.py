@@ -2,7 +2,9 @@ from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.vectorstores.pgvector import PGVector
 
 from dotenv import load_dotenv
+import os
 load_dotenv()
+
 
 llm = ChatOpenAI(temperature=0, model="gpt-4o-mini")
 

@@ -1,5 +1,5 @@
-import { NextResponse } from "next/server";
-import { courses, myTakenCourses } from "@/lib/cs-courses";
+import { NextResponse, NextRequest } from "next/server";
+import { courses } from "@/lib/cs-courses";
 
 
 const getPrerequisites = (desiredCourses: string[], takenCourses: string[]) => {
@@ -30,7 +30,7 @@ const getPrerequisites = (desiredCourses: string[], takenCourses: string[]) => {
 
 
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
 
     const data = await request.json();
 
@@ -48,7 +48,6 @@ export async function POST(request: Request) {
         }
     })
 
-    console.log("courseInfo: ", courseSequence);
 
     return NextResponse.json(courseSequence);
 }

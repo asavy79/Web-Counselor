@@ -1,7 +1,7 @@
 import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
-from db import create_student, check_student, add_course, fetch_student_courses
+from db import create_student, check_student, add_course, fetch_student_courses, delete_course
 from request_bodies import Student, StudentCourse, QueryRequest
 from test_query import prompt_llm
 
@@ -16,6 +16,9 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Command to initialize database:
+# Base.metadata.create_all(engine)
 
 
 @app.get("/")
@@ -39,10 +42,12 @@ async def add_student(student: Student):
     else:
         return {"message": "student created!", "student": student}
 
+
 @app.get("/courses")
 async def get_student_courses(email: str):
     courses = fetch_student_courses(email)
     return {"courses": courses}
+
 
 @app.post("/courses")
 async def add_student_course(course: StudentCourse):
@@ -51,7 +56,6 @@ async def add_student_course(course: StudentCourse):
         return {"message": "Course added successfully", "course": course}
     else:
         return {"message": "Course not added"}
-
 
 
 @app.post("/query")
@@ -64,5 +68,17 @@ async def query_llm(data: QueryRequest):
     return {"response": response}
 
 
+@app.delete("/courses")
+async def delete_student_course(course: StudentCourse):
+    print("DKJSFKJLSDJKLFSDKJLFKLJSKLFDJ")
+    result = delete_course(course.course_code, course.email)
+    if not result:
+        raise HTTPException(
+            status_code=404, detail=f"{course.course_code} with {course.email} as user could not be deleted")
+    return {"message": "course deleted successfully!"}
+
+# command to test
+#hello 
+
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run("test-backend:app", host="0.0.0.0", port=8000, reload=True)

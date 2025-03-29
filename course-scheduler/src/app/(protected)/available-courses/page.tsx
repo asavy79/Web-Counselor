@@ -4,7 +4,7 @@ import { CourseCard } from "@/components/CourseCard";
 import { ChatInterface } from "@/components/ChatInterface";
 import { useState, useEffect } from "react";
 import { courses as csCourses } from "@/lib/cs-courses";
-import { myTakenCourses, myDesiredCourses } from "@/lib/cs-courses";
+import { myDesiredCourses } from "@/lib/cs-courses";
 
 interface Course {
   id: string;
@@ -19,28 +19,27 @@ export default function AvailableCourses() {
   const [prerequisites, setPrerequisites] = useState<Course[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const [takenCoursesList, setTakenCoursesList] = useState<string[]>([]);
-  const [newCourseCode, setNewCourseCode] = useState('');
-  
+  const [newCourseCode, setNewCourseCode] = useState("");
 
   useEffect(() => {
     const fetchStudentCourses = async () => {
       try {
         const response = await fetch("/api/student_courses", {
           method: "GET",
-          headers: {"Content-Type": "application/json"}
-        })
+          headers: { "Content-Type": "application/json" },
+        });
         const data = await response.json();
-        setTakenCoursesList(data.courses.map((course: any) => course.course_code));
-        
-        console.log("Data: ",data);
+        setTakenCoursesList(
+          data.courses.map((course: any) => course.course_code)
+        );
+
+        console.log("Data: ", data);
       } catch (error) {
         console.error("Failed to fetch student courses:", error);
       }
-    }
+    };
     fetchStudentCourses();
   }, []);
-  
-
 
   const handleCourseSelect = (courseId: string) => {
     setSelectedCourses((prev) =>
@@ -96,25 +95,37 @@ export default function AvailableCourses() {
       const courseId = newCourseCode.trim().toUpperCase();
       const response = await fetch("/api/student_courses", {
         method: "POST",
-        body: JSON.stringify({courseId}),
-        headers: {"Content-Type": "application/json"}
-      })
+        body: JSON.stringify({ courseId }),
+        headers: { "Content-Type": "application/json" },
+      });
       if (response.ok) {
-        setNewCourseCode('');
+        setNewCourseCode("");
         const data = await response.json();
-        console.log("Data: ",data);
-        if(data.message == "Course not added")
-        {
+        console.log("Data: ", data);
+        if (data.message == "Course not added") {
           console.log("Failed to add course");
-        }
-        else
-        {
+        } else {
           setTakenCoursesList((prev) => [...prev, courseId]);
         }
       } else {
         console.error("Failed to add course");
       }
     }
+  };
+
+  const handleDeleteTakenCourse = async (courseId: string) => {
+    const result = await fetch(`/api/student_courses?courseId=${courseId}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (!result.ok) {
+      console.log("Unable to delete course!");
+    } else {
+      setTakenCoursesList((takenCoursesList) =>
+        takenCoursesList.filter((course) => course != courseId)
+      );
+    }
+    return;
   };
 
   return (
@@ -126,7 +137,7 @@ export default function AvailableCourses() {
 
         <div className="mb-8 bg-white p-6 rounded-lg shadow">
           <h2 className="text-xl font-semibold mb-4">My Taken Courses</h2>
-          
+
           <form onSubmit={handleAddTakenCourse} className="mb-4 flex gap-2">
             <input
               type="text"
@@ -147,9 +158,16 @@ export default function AvailableCourses() {
             {takenCoursesList.map((courseId) => (
               <div
                 key={courseId}
-                className="bg-white p-3 rounded-lg shadow text-center border border-gray-200"
+                className="bg-white p-3 rounded-lg shadow text-center border border-gray-200 relative group"
               >
                 <span className="font-semibold text-gray-800">{courseId}</span>
+                <button
+                  onClick={() => handleDeleteTakenCourse(courseId)}
+                  className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gray-100 hover:bg-red-100 border border-gray-300 flex items-center justify-center text-gray-500 hover:text-red-600 transition-colors"
+                  aria-label="Delete course"
+                >
+                  ×
+                </button>
               </div>
             ))}
           </div>

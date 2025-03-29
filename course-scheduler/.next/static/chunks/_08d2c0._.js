@@ -506,7 +506,7 @@ function AvailableCourses() {
     const [prerequisites, setPrerequisites] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
     const [isLoading, setIsLoading] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])(false);
     const [takenCoursesList, setTakenCoursesList] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])([]);
-    const [newCourseCode, setNewCourseCode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])('');
+    const [newCourseCode, setNewCourseCode] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useState"])("");
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$index$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["useEffect"])({
         "AvailableCourses.useEffect": ()=>{
             const fetchStudentCourses = {
@@ -589,7 +589,7 @@ function AvailableCourses() {
                 }
             });
             if (response.ok) {
-                setNewCourseCode('');
+                setNewCourseCode("");
                 const data = await response.json();
                 console.log("Data: ", data);
                 if (data.message == "Course not added") {
@@ -605,6 +605,20 @@ function AvailableCourses() {
             }
         }
     };
+    const handleDeleteTakenCourse = async (courseId)=>{
+        const result = await fetch(`/api/student_courses?courseId=${courseId}`, {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json"
+            }
+        });
+        if (!result.ok) {
+            console.log("Unable to delete course!");
+        } else {
+            setTakenCoursesList((takenCoursesList)=>takenCoursesList.filter((course)=>course != courseId));
+        }
+        return;
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "min-h-screen bg-gray-50 p-6",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -615,7 +629,7 @@ function AvailableCourses() {
                     children: "Available Courses"
                 }, void 0, false, {
                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                    lineNumber: 123,
+                    lineNumber: 134,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -626,7 +640,7 @@ function AvailableCourses() {
                             children: "My Taken Courses"
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                            lineNumber: 128,
+                            lineNumber: 139,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
@@ -641,7 +655,7 @@ function AvailableCourses() {
                                     className: "px-3 py-2 border rounded-md flex-grow"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 131,
+                                    lineNumber: 142,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -650,41 +664,53 @@ function AvailableCourses() {
                                     children: "Add Course"
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 138,
+                                    lineNumber: 149,
                                     columnNumber: 13
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                            lineNumber: 130,
+                            lineNumber: 141,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                             className: "grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3",
                             children: takenCoursesList.map((courseId)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                    className: "bg-white p-3 rounded-lg shadow text-center border border-gray-200",
-                                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                        className: "font-semibold text-gray-800",
-                                        children: courseId
-                                    }, void 0, false, {
-                                        fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                        lineNumber: 152,
-                                        columnNumber: 17
-                                    }, this)
-                                }, courseId, false, {
+                                    className: "bg-white p-3 rounded-lg shadow text-center border border-gray-200 relative group",
+                                    children: [
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
+                                            className: "font-semibold text-gray-800",
+                                            children: courseId
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
+                                            lineNumber: 163,
+                                            columnNumber: 17
+                                        }, this),
+                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
+                                            onClick: ()=>handleDeleteTakenCourse(courseId),
+                                            className: "absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gray-100 hover:bg-red-100 border border-gray-300 flex items-center justify-center text-gray-500 hover:text-red-600 transition-colors",
+                                            "aria-label": "Delete course",
+                                            children: "×"
+                                        }, void 0, false, {
+                                            fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
+                                            lineNumber: 164,
+                                            columnNumber: 17
+                                        }, this)
+                                    ]
+                                }, courseId, true, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 148,
+                                    lineNumber: 159,
                                     columnNumber: 15
                                 }, this))
                         }, void 0, false, {
                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                            lineNumber: 146,
+                            lineNumber: 157,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                    lineNumber: 127,
+                    lineNumber: 138,
                     columnNumber: 9
                 }, this),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -702,12 +728,12 @@ function AvailableCourses() {
                                         children: isLoading ? "Generating..." : "Generate Course Sequence"
                                     }, void 0, false, {
                                         fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                        lineNumber: 161,
+                                        lineNumber: 179,
                                         columnNumber: 15
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 160,
+                                    lineNumber: 178,
                                     columnNumber: 13
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -720,12 +746,12 @@ function AvailableCourses() {
                                             onSelect: ()=>handleCourseSelect(course.id)
                                         }, course.id, false, {
                                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                            lineNumber: 171,
+                                            lineNumber: 189,
                                             columnNumber: 17
                                         }, this))
                                 }, void 0, false, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 169,
+                                    lineNumber: 187,
                                     columnNumber: 13
                                 }, this),
                                 prerequisites.length > 0 && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -736,7 +762,7 @@ function AvailableCourses() {
                                             children: "Required Prerequisites:"
                                         }, void 0, false, {
                                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                            lineNumber: 183,
+                                            lineNumber: 201,
                                             columnNumber: 17
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -747,7 +773,7 @@ function AvailableCourses() {
                                                     children: "Recommended Sequence:"
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                                    lineNumber: 187,
+                                                    lineNumber: 205,
                                                     columnNumber: 19
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("ol", {
@@ -757,56 +783,56 @@ function AvailableCourses() {
                                                             children: `${course.courseCode}: ${course.description}`
                                                         }, course.courseCode, false, {
                                                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                                            lineNumber: 192,
+                                                            lineNumber: 210,
                                                             columnNumber: 23
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                                    lineNumber: 190,
+                                                    lineNumber: 208,
                                                     columnNumber: 19
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                            lineNumber: 186,
+                                            lineNumber: 204,
                                             columnNumber: 17
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                                    lineNumber: 182,
+                                    lineNumber: 200,
                                     columnNumber: 15
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                            lineNumber: 159,
+                            lineNumber: 177,
                             columnNumber: 11
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$src$2f$components$2f$ChatInterface$2e$tsx__$5b$app$2d$client$5d$__$28$ecmascript$29$__["ChatInterface"], {}, void 0, false, {
                             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                            lineNumber: 203,
+                            lineNumber: 221,
                             columnNumber: 11
                         }, this)
                     ]
                 }, void 0, true, {
                     fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-                    lineNumber: 158,
+                    lineNumber: 176,
                     columnNumber: 9
                 }, this)
             ]
         }, void 0, true, {
             fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-            lineNumber: 122,
+            lineNumber: 133,
             columnNumber: 7
         }, this)
     }, void 0, false, {
         fileName: "[project]/src/app/(protected)/available-courses/page.tsx",
-        lineNumber: 121,
+        lineNumber: 132,
         columnNumber: 5
     }, this);
 }
-_s(AvailableCourses, "Q2qPaNuTMKQ6QHQyQ+8BbjL78u4=");
+_s(AvailableCourses, "KmcOK243pwR6cIVmsltQgKOFwHg=");
 _c = AvailableCourses;
 var _c;
 __turbopack_refresh__.register(_c, "AvailableCourses");

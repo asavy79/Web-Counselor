@@ -9,7 +9,7 @@ class Student(BaseModel):
 class StudentCourse(BaseModel):
     course_code: str
     email: str
-    grade: str
+    grade: str | None=None
 
 
 class Course(BaseModel):

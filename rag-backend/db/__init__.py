@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, delete
 from sqlalchemy.orm import Session
 from sqlalchemy.exc import NoResultFound
 from sqlalchemy.orm import DeclarativeBase, relationship, mapped_column
@@ -58,10 +58,9 @@ def fetch_student_courses(student_email):
         formatted_results.append({
             "course_code": student_course.course_code,
             "grade": student_course.grade,
-        "course_title": title,
-    })
+            "course_title": title,
+        })
     return formatted_results
-
 
 
 def create_student(student_email, student_name):
@@ -96,7 +95,7 @@ def add_course(student_email, course_code, grade):
         except NoResultFound:
             print("Student or course not found!")
             return None
-        check_course = session.query(StudentCourse).filter_by(  
+        check_course = session.query(StudentCourse).filter_by(
             email=student_email, course_code=course_code).one_or_none()
         if check_course:
             print("Course already exists!")
@@ -106,3 +105,16 @@ def add_course(student_email, course_code, grade):
         session.add(student_course)
         session.commit()
         return student_course
+
+
+def delete_course(course_code, email):
+    with Session(engine) as session:
+        try:
+            session.query(StudentCourse).filter_by(
+                course_code=course_code, email=email).delete()
+            session.commit()
+            return True
+        except Exception as e:
+            print("An error occurred")
+            print(e)
+            return False
