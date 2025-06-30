@@ -67,6 +67,6 @@ docker compose up
 
 ## 🚧 Project Status
 
-This project is currently **in progress**. I'm actively building out features, testing major-specific logic, and refining the chatbot's capabilities.
+This is a **learning project**. I'm building out a proof of concept while gaining fundamental skills with modern AI frameworks.
 
 If you're interested in collaborating — whether it's for data modeling, front-end integration, or improving the AI counselor — feel free to reach out or open an issue! I'd love to connect.
